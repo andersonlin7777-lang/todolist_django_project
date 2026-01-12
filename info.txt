@@ -1,0 +1,10 @@
+pip install django-crispy-forms
+pip install Django
+#Create a Django Project
+django-admin startproject todo_site
+#Create a Django App
+python manage.py startapp todo
+# Add the todo App to Settings
+#Configure URLs
+
+

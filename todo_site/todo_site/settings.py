@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+#crispy_forms 就是大樓的**「室內裝潢設計師」
 INSTALLED_APPS = [
     'todo',
     'crispy_forms',
@@ -122,3 +122,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 告訴 Crispy Forms 使用 Bootstrap 4 的風格
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
