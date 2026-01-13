@@ -7,4 +7,9 @@ python manage.py startapp todo
 # Add the todo App to Settings
 #Configure URLs
 
+#python manage.py makemigrations：製作施工圖
+#python manage.py migrate：正式動工
+#Start the Django development server:
+
+python manage.py runserver
 
