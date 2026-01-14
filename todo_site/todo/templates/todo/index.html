@@ -61,16 +61,20 @@
 
       {% for i in list %}
       <div class="card">
-        <center><b>{{i.title}}</b></center>
+        <center>
+          <b>{% if i.completed %}<s>{{i.title}}</s>{% else %}{{i.title}}{% endif %}</b>
+        </center>
         <hr/>
         {{i.date}}
         <hr/>
         {{i.details}}
         <br />
         <br />
-        <form action="/del/{{i.id}}" method="POST" style=" padding-right: 4%; padding-bottom: 3%;">
+        <form action="{% url 'cross_off' i.id %}" method="POST" style="display: inline;">
           {% csrf_token %}
-          <button value="remove" type="submit"  class="btn btn-primary" style="float: right;"><span class="glyphicon glyphicon-trash"></span> &nbsp; remove</button>
+          <button type="submit" class="btn btn-success">
+            {% if i.completed %}標記為未完成{% else %}勾選完成{% endif %}
+          </button>
         </form>
       </div>
       {% endfor%}

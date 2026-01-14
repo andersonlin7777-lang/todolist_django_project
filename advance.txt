@@ -1,0 +1,8 @@
+1.增訂功能1：新增完成狀態 (Checkbox)
+*第一步：修改 models.py（定義新規格）
+*第二步：同步資料庫（施工）
+    python manage.py makemigrations（產生新的施工清單）
+    python manage.py migrate（正式在資料庫增加 completed 這一欄）
+*第三步：修改 views.py（增加切換開關的邏輯）
+*第四步：修改 urls.py（設定門牌）
+*第五步：修改 index.html（更新介面）

@@ -33,3 +33,11 @@ def remove(request, item_id):
     item.delete()
     messages.info(request, "item removed")
     return redirect('todo')
+
+#新增功能1
+def cross_off(request, item_id):
+    item = Todo.objects.get(id=item_id)
+    # 切換狀態：如果是 True 就變 False，如果是 False 就變 True
+    item.completed = not item.completed
+    item.save()
+    return redirect('todo')
