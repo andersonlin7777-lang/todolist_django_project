@@ -54,14 +54,34 @@
     <h1><i>__TODO LIST__</i></h1>
     <hr />
   </center>
+  
+  <div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-12">
+        <form method="GET" action="{% url 'todo' %}" class="form-inline" style="text-align: center;">
+            <div class="form-group">
+                <input type="text" name="search" class="form-control" placeholder="搜尋任務標題..." value="{{ request.GET.search }}" style="width: 300px; border-radius: 15px;">
+            </div>
+            <button type="submit" class="btn btn-info" style="border-radius: 15px;">
+                <span class="glyphicon glyphicon-search"></span> 搜尋
+            </button>
+            {% if request.GET.search %}
+                <a href="{% url 'todo' %}" class="btn btn-default" style="border-radius: 15px;">清除搜尋</a>
+            {% endif %}
+        </form>
+    </div>
+  </div>
 
   <div class="row">
 
     <div class="col-md-8">
 
       {% for i in list %}
-      <div class="card">
+      <div class="card" style="{% if i.is_overdue %}background: #fff0f0; border: 2px solid #ff4d4d;{% endif %}">
         <center>
+          {% if i.is_overdue %}
+            <span class="label label-danger" style="display: block; margin-bottom: 5px;">⚠️ 已過期</span>
+          {% endif %}
+          
           {% if i.priority == 'H' %}
             <span class="label label-danger">優先級：高</span>
           {% elif i.priority == 'M' %}
@@ -73,12 +93,22 @@
           <br/>
           <b>{% if i.completed %}<s>{{i.title}}</s>{% else %}{{i.title}}{% endif %}</b>
         </center>
-        <hr/>
-        {{i.date}}
-        <hr/>
-        {{i.details}}
-        <br />
-        <br />
+<hr/>
+<div style="padding: 0 5%;">
+    <b>建立日期：</b> {{ i.date|date:"Y-m-d H:i" }} <br/>
+    <b>截止日期：</b>
+    {% if i.due_date %}
+        <span style="color: {% if i.is_overdue %}red{% else %}inherit{% endif %}; font-weight: bold;">
+            {{ i.due_date }}
+        </span>
+    {% else %}
+        <span class="text-muted">未設定</span>
+    {% endif %}
+    <hr/>
+    <b>內容詳情：</b><br/>
+    {{ i.details }}
+</div>
+<br />
         <form action="{% url 'cross_off' i.id %}" method="POST" style="display: inline;">
           {% csrf_token %}
           <button type="submit" class="btn btn-success">

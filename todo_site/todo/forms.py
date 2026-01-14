@@ -11,4 +11,8 @@ class TodoForm(forms.ModelForm):
         model = Todo
         #「把 Todo 模型裡的所有欄位（title、details、date）通通都放到表單上，讓使用者可以填寫」
         fields = "__all__"
+        # 新增這段：把日期欄位變成 HTML5 的日期選擇器
+        widgets = {
+            'due_date': forms.DateInput(attrs={'type': 'date'}),
+        }
         

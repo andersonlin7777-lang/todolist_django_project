@@ -7,6 +7,15 @@ from .models import Todo
 def index(request):
     #這行是去資料庫把所有Todo抓出來。-date的負號代表「倒序」，也就是讓最新的待辦事項排在最上面。
     item_list = Todo.objects.order_by("-date")
+
+    #------新增搜尋需求---新增功能3------
+    # 嘗試從網址抓取名為 'search' 的參數 (例如: ?search=買東西)
+    search_querry = request.GET.get('search')
+    if search_querry:
+        # 使用 icontains 進行不分大小寫的模糊搜尋
+        item_list = item_list.filter(title__icontains=search_querry)
+    #------
+
     #處理新增請求 (POST)，提交資料 (POST)
     if request.method == "POST":
         #將使用者填寫的內容裝進表單
