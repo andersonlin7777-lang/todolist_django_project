@@ -62,6 +62,15 @@
       {% for i in list %}
       <div class="card">
         <center>
+          {% if i.priority == 'H' %}
+            <span class="label label-danger">優先級：高</span>
+          {% elif i.priority == 'M' %}
+            <span class="label label-warning">優先級：中</span>
+          {% else %}
+            <span class="label label-success">優先級：低</span>
+          {% endif %}
+        
+          <br/>
           <b>{% if i.completed %}<s>{{i.title}}</s>{% else %}{{i.title}}{% endif %}</b>
         </center>
         <hr/>

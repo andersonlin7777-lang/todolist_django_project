@@ -7,11 +7,25 @@ from django.utils import timezone
 # 而是透過 Python 寫下一個「類別（Class）」，Django 就會自動幫我們在資料庫
 # （如 SQLite 或 MySQL）中建立對應的表格
 class Todo(models.Model):
+    #定義優先順序選項---增訂功能2
+    PRIORITY_CHOICES = [
+        ('H', '高'),
+        ('M', '中'),
+        ('L', '低')
+    ]
+
     title = models.CharField(max_length=100)
     details = models.TextField()
     date = models.DateTimeField(default=timezone.now)
     #預設為false(未完成)---增訂功能1
     completed = models.BooleanField(default=False)
+
+    #預設值為 'M' (中)---增訂功能2
+    priority = models.CharField(
+        max_length=1,
+        choices=PRIORITY_CHOICES,
+        default='M'
+    )
 
     #這是 Python 的特殊方法。它的作用是：當你在後台管理介面（Admin）查看這些資料時，應該「顯示什麼名字」
     def __str__(self):
